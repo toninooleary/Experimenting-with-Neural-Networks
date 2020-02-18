@@ -55,3 +55,17 @@ e.g. X1 * w1 + x2 * w2
 
 - The weights will be initialised as random in this scenario.
 
+## Modifying the weights when it is correct or incorrect:
+
+- We will be using supervised learning
+
+- Each time the perceptron takes inputs it will make a guess.
+
+- I also have the answer.
+
+- Therefore, I can work out the error by doing:
+    - error = answer - guess
+
+- Here we are trying to find the optimul weights.
+ 
+
