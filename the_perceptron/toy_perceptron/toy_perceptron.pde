@@ -17,7 +17,26 @@ void setup() {
 
 void draw(){
   background(255);
-  for (Point p : points){
-    p.show();
+  stroke(0);
+  line(0, 0, width, height);
+  
+  for (Point pt : points){
+    pt.show();
   }
+  
+  for (Point pt: points) {
+    float[] inputs = {pt.x, pt.y};
+    int target = pt.label;
+    int guess = p.guess(inputs);
+    //p.train(inputs, target);
+    
+    if (guess == target) {
+      fill(0, 255, 0);
+    } else {
+      fill(255, 0, 0);
+    }
+    noStroke();
+    ellipse(pt.x, pt.y, 8, 8);
+  }
+  
 }

@@ -24,8 +24,7 @@ class Point {
       fill(0);
     }
     
-    ellipse(x,y, 6, 6);
-    
+    ellipse(x,y, 6, 6);   
   }
   
 }

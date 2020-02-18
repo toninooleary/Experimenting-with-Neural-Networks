@@ -10,6 +10,7 @@ int sign(float n){
 class Perceptron {
   // Initialise an array of two weights
   float[] weights = new float[2];
+  float learning_rate = 0.1;
   
   // Constructor
   Perceptron(){
@@ -23,11 +24,22 @@ class Perceptron {
   int guess(float[] inputs){
     float sum = 0;
     for (int i = 0; i < weights.length; i++){
-      sum = inputs[i] * weights[i];
+      sum += inputs[i] * weights[i];
     }
     
     int output = sign(sum);
     return output;
+  }
+  
+  void train(float[] inputs, int target) {
+    int guess = guess(inputs);
+    int error = target - guess;
+    
+    // tuning all of the weights
+    for (int i = 0; i < weights.length; i++){
+      weights[i] += error * inputs[i] * learning_rate;
+    }
+    
   }
   
 }

@@ -41,7 +41,7 @@ e.g. X1 * w1 + x2 * w2
 
 ## The outputs we want for the perceptron
 
-- We want calssifications to A and B to be +1 or -1.
+- We want classifications to A and B to be +1 or -1.
 
 - To do this we will use the 'SIGN(N)' function.
 
@@ -68,4 +68,38 @@ e.g. X1 * w1 + x2 * w2
 
 - Here we are trying to find the optimul weights.
  
+--- 
+
+## Gradient Descent
+
+- Used to correct the error of the neural network
+
+![diagram](./pictures/error_example.png "Scenario in which an gradient descent would need to be used")
+
+- You want to go some target "x"
+
+    - therefore, its desired velocity - velocity is where it will steer
+
+- In our perceptron the "desired" is our "answer", the "velocity" is the "guess", the "steering" is the "error" (where we want to go).
+    - WE WANT TO STEER IN THE DIRECTION OF THE ERROR!
+
+**In terms of maths:**
+
+    Gradient(weight) = ERROR * INPUT
+
+    NEW WEIGHT = WEIGHT + ERROR * INPUT * LEARNING RATE
+
+---
+
+## Learning rate:
+
+- The learning rate is how much we want to "steer" the error (towards the correct target).
+
+- We don't want to steer it all the way/alot because we can overshoot our desired direction.
+    - That would cause us to not follow the path we want to go in
+
+- Therefore, we only change the new rate by a small amount(to not over steer). That is why we multiply our new rate by a "learning rate". 
+
+
+
 
