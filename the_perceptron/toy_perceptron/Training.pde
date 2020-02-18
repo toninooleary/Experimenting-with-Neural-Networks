@@ -1,6 +1,7 @@
 class Point {
   float x;
   float y;
+  //label represents the point's classification
   int label;
   
   // constructor

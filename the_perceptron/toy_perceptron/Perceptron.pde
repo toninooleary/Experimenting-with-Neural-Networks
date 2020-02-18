@@ -31,6 +31,7 @@ class Perceptron {
     return output;
   }
   
+  // trains the perceptron
   void train(float[] inputs, int target) {
     int guess = guess(inputs);
     int error = target - guess;
