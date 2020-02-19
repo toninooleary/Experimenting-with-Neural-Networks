@@ -58,8 +58,12 @@ void mouseDragged(){
     stroke(26, 117, 255);
   }
   
-  // uses linear interpolation to smooth between thickness increase and decrease of the line.
-  prevStroke = lerp(prevStroke, abs(mouseX-pmouseX + mouseY-pmouseY), 0.15);
+  // limits how small the thickness of the line can get
+  if (abs(mouseX-pmouseX + mouseY-pmouseY) <= 5){
+    prevStroke = lerp(prevStroke, 6, 0.15);  
+  } else
+    // uses linear interpolation to smooth between thickness increase and decrease of the line.
+    prevStroke = lerp(prevStroke, abs(mouseX-pmouseX + mouseY-pmouseY), 0.15);
   strokeWeight(prevStroke);
   //pmouse represents the mouse's previous location.
   line(pmouseX, pmouseY, mouseX, mouseY); 

@@ -13,8 +13,12 @@ This perceptron aims to classify points as 1 or -1 depending on what side of the
 ![image](./the_perceptron/pictures/fully_classified.PNG "What the perceptron's guessed classifications look like at the end of its training")
 
 #### Exapanding on the perceptron - classifying a drawn line as greater or less than a given boundary:
-![image](./the_perceptron/pictures/classifying_a_drawn_line.PNG "What the perceptron's guessed classifications look like at the end of its training")
+![image](./the_perceptron/pictures/classifying_a_drawn_line.PNG "Draw ellipses are classified to be on one side or another side of the boundary line")
 
 - This image shows the line after using linear interpolation to smooth the transitions when the weight of the line increases and decreases.
 
-![image](./the_perceptron/pictures/classifying_a_drawn_line_smooth.PNG "What the perceptron's guessed classifications look like at the end of its training")
+![image](./the_perceptron/pictures/classifying_a_drawn_line_smooth.PNG "Draw line is classified to be on one side or another side of the boundary line")
+
+- The draw feature now has a thickness limit of 5px.
+
+![image](./the_perceptron/pictures/classifying_a_drawn_line_smooth_limit.PNG "Draw line is classified to be on one side or another side of the boundary line (smooth dransition between line hickness increase and decrease)")
