@@ -43,9 +43,21 @@ void draw(){
   if (pointIndex >= points.length){
     pointIndex = 0;
   }
+  
 }
 
-
+void mouseDragged(){
+  float[] inputs = {mouseX, mouseY};
+  int guess = p.guess(inputs);
+  
+  if (guess == 1) {
+    fill(255, 117, 26);
+  } else {
+    fill(26, 117, 255);
+  }
+  noStroke();
+  ellipse(mouseX, mouseY, 15, 15);  
+}
 //// trains all points at one
 //void mousePressed(){
 //  //goes through every point training them
