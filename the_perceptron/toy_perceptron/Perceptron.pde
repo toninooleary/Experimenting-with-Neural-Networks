@@ -1,4 +1,4 @@
-// this is the transfer function
+// this is the transfer/activation function
 int sign(float n){
   if (n >= 0) {
     return 1;
