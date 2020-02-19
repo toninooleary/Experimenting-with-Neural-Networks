@@ -1,6 +1,7 @@
 Perceptron p;
 Point[] points = new Point[100];
 int pointIndex = 0;
+float prevStroke = 0;
 
 void setup() {
   size(500, 500);
@@ -20,6 +21,7 @@ void setup() {
 
 void draw(){
   stroke(0);
+  strokeWeight(1);
   line(0, 0, width, height);
 
   //trains the perceptron one point at a time
@@ -51,12 +53,16 @@ void mouseDragged(){
   int guess = p.guess(inputs);
   
   if (guess == 1) {
-    fill(255, 117, 26);
+    stroke(255, 117, 26);
   } else {
-    fill(26, 117, 255);
+    stroke(26, 117, 255);
   }
-  noStroke();
-  ellipse(mouseX, mouseY, 15, 15);  
+  
+  // uses linear interpolation to smooth between thickness increase and decrease of the line.
+  prevStroke = lerp(prevStroke, abs(mouseX-pmouseX + mouseY-pmouseY), 0.15);
+  strokeWeight(prevStroke);
+  //pmouse represents the mouse's previous location.
+  line(pmouseX, pmouseY, mouseX, mouseY); 
 }
 //// trains all points at one
 //void mousePressed(){

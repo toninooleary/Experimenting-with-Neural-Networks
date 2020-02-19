@@ -14,3 +14,7 @@ This perceptron aims to classify points as 1 or -1 depending on what side of the
 
 #### Exapanding on the perceptron - classifying a drawn line as greater or less than a given boundary:
 ![image](./the_perceptron/pictures/classifying_a_drawn_line.PNG "What the perceptron's guessed classifications look like at the end of its training")
+
+- This image shows the line after using linear interpolation to smooth the transitions when the weight of the line increases and decreases.
+
+![image](./the_perceptron/pictures/classifying_a_drawn_line_smooth.PNG "What the perceptron's guessed classifications look like at the end of its training")
