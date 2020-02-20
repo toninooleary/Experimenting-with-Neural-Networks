@@ -1,34 +1,25 @@
 class Switch {
-  int label;
+  int state;
   
   //constructor
   Switch(){
-    label = 1;
+    state = 1;
   }
   
   // Returns the label of the switch at this current moment
-  int getLabel(){
-    return label;
+  int getState(){
+    return state;
   }
   
   // changes inputs from the current to its opposite. e.g. 1 to 0
   void change(){
-    if (label == 1){
-      label = -1;
+    if (state == 1){
+      state = 0;
       fill(255, 0, 0);
     } else {
-      label = 1;
+      state = 1;
       fill(0, 255, 0);
     }
-  }
-  
-  // It will get the other input and check if it should be a 0 or 1 for the AND gate's logic.
-  int logicPair(int labelPair){
-    if (label == 1 && labelPair == 1){
-      return 1;
-    }
-
-    return -1;    
   }
   
   void display(){
