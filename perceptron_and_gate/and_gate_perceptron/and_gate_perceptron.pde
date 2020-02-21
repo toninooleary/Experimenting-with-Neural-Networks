@@ -9,7 +9,7 @@ void setup(){
   trainData[0] = new Golden(0, 0, 0);
   trainData[1] = new Golden(0, 1, 0);
   trainData[2] = new Golden(1, 0, 0);
-  trainData[3] = new Golden(1, 1, 0);
+  trainData[3] = new Golden(1, 1, 1);
   
 }
 

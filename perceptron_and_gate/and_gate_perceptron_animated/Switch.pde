@@ -3,7 +3,7 @@ class Switch {
   
   //constructor
   Switch(){
-    state = 1;
+    state = 0;
   }
   
   // Returns the label of the switch at this current moment
@@ -22,7 +22,9 @@ class Switch {
     }
   }
   
-  void display(){
-    ellipse(random(width/2), random(height/2), 30, 30);
+  //displays the switches on the screen
+  void display(float w, float h){
+    noStroke();
+    ellipse(w, h, 30, 30);
   }
 }
