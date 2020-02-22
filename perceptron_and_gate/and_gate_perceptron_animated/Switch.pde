@@ -1,6 +1,8 @@
 class Switch {
   int state;
-  
+  float w; 
+  float h; 
+  float diameter;
   //constructor
   Switch(){
     state = 0;
@@ -20,11 +22,27 @@ class Switch {
       state = 1;
       fill(0, 255, 0);
     }
+    display();
   }
   
   //displays the switches on the screen
-  void display(float w, float h){
+  void display(){
     noStroke();
-    ellipse(w, h, 30, 30);
+    getFill();
+    ellipse(w, h, diameter, diameter);
+  }
+  
+  void getFill(){
+    if (state == 0){
+      fill(255, 0, 0);
+    } else {
+      fill(0, 255, 0);
+    }
+  }
+  
+  void setPos(float w, float h, float diameter){
+    this.w = w;
+    this.h = h;
+    this.diameter = diameter;
   }
 }
