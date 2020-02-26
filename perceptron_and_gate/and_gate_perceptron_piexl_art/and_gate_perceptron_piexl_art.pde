@@ -16,8 +16,15 @@ boolean overTrain;
 boolean overInput1;
 boolean overInput2;
 
+PImage switchOnSS;
+JSONObject switchOnJsn;
+PImage[] switchOnFrames = new PImage[4];
+
 void setup(){
   size(1200, 800);
+  switchOnSS = loadImage("/animations/switch_on_v2_sheet.png");
+  switchOnJsn = loadJSONObject("/animations/switch_on_v2_data.json");
+  
   genNum = 0;
   light = false;
   rectSize = 50;
@@ -44,12 +51,22 @@ void setup(){
   trainData[1] = new Golden(0, 1, 0);
   trainData[2] = new Golden(1, 0, 0);
   trainData[3] = new Golden(1, 1, 1);
+  
+  JSONObject frames = switchOnJsn.getJSONObject("frames");
+  for (int i = 0; i < frames.size(); i++){
+    JSONObject imgData = frames.getJSONObject("switch_on_v2 " + i + ".aseprite" );
+    JSONObject frameData = imgData.getJSONObject("frame");
+    PImage img = switchOnSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
+    switchOnFrames[i] = img;
+  }
+  
 }
 
 void draw(){
   background(255);
   buttonUpdate();
   displayAttributes();
+  image(switchOnFrames[0], 0, 0);
 }
 
 void displayAttributes(){
