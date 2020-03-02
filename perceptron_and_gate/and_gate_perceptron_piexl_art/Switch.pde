@@ -2,7 +2,9 @@ class Switch {
   int state;
   float w; 
   float h; 
-  float diameter;
+  float x;
+  float y;
+  
   //constructor
   Switch(){
     state = 0;
@@ -29,7 +31,7 @@ class Switch {
   void display(){
     noStroke();
     getFill();
-    ellipse(w, h, diameter, diameter);
+    rect(x, y, w, h);
   }
   
   void getFill(){
@@ -40,9 +42,10 @@ class Switch {
     }
   }
   
-  void setPos(float w, float h, float diameter){
+  void setPos(float x, float y, float w, float h){
+    this.x = x;
+    this.y = y;
     this.w = w;
     this.h = h;
-    this.diameter = diameter;
   }
 }

@@ -11,7 +11,6 @@ int inp1PosX;
 int inp1PosY;
 int inp2PosX;
 int inp2PosY;
-int diameter;
 boolean overTrain;
 boolean overInput1;
 boolean overInput2;
@@ -28,13 +27,12 @@ void setup(){
   genNum = 0;
   light = false;
   rectSize = 50;
-  rectPosX = width/width * 100;
+  rectPosX = (width/width * 100);
   rectPosY = height/6 * 5;
-  inp1PosX = width/width * 100;
-  inp1PosY = height/4;
+  inp1PosX = (width/width * 100) -33;
+  inp1PosY = (height/4) -60;
   inp2PosX = inp1PosX;
   inp2PosY = inp1PosY * 3;
-  diameter = 30;
   overTrain = false;
   overInput1 = false;
   overInput2 = false;
@@ -43,8 +41,8 @@ void setup(){
   for (int i = 0; i < switches.length; i++){
     switches[i] = new Switch();
   }
-  switches[0].setPos(inp1PosX, inp1PosY, diameter);
-  switches[1].setPos(inp2PosX, inp2PosY, diameter); 
+  switches[0].setPos(inp1PosX, inp1PosY, 86, 119);
+  switches[1].setPos(inp2PosX, inp2PosY, 86, 119); 
   
   //initialising training data
   trainData[0] = new Golden(0, 0, 0);
@@ -66,7 +64,6 @@ void draw(){
   background(255);
   buttonUpdate();
   displayAttributes();
-  image(switchOnFrames[0], 0, 0);
 }
 
 void displayAttributes(){
@@ -122,11 +119,11 @@ void buttonUpdate(){
     overTrain = true;
     overInput1 = false;
     overInput2 = false;
-  } else if (hoverInput1(inp1PosX, inp1PosY, diameter)){
+  } else if (hoverInput1(inp1PosX, inp1PosY, 86, 119)){
     overInput1 = true;
     overTrain = false;
     overInput2 = false;
-  } else if (hoverInput2(inp2PosX, inp2PosY, diameter)){
+  } else if (hoverInput2(inp2PosX, inp2PosY, 86, 119)){
     overInput2 = true;
     overInput1 = false;
     overTrain = false;   
@@ -146,30 +143,22 @@ boolean hoverTrain(int x, int y, int w, int h){
   return false;
 }
 
-boolean hoverInput1(int x, int y, int d){
-  //finds the distance away from the centre of the circle
-  float disX = x - mouseX;
-  float disY = y - mouseY;
-  
-  //works out the length of the line from the centre of the circle to the mouse location.
-  //The radius is the same from all angles of the circle so...
-  //If that length is less than the radius then it is in the circle
-  if (sqrt(sq(disX) + sq(disY)) < diameter/2 ) {
+boolean hoverInput1(int x, int y, int w, int h){
+  //Checks if the mouse is in the boundary of the edge height and width of the "buttons"
+  if (mouseX >= x && mouseX <= x+w &&
+      mouseY >= y && mouseY <= y+h){
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
-boolean hoverInput2(int x, int y, int d){
+boolean hoverInput2(int x, int y, int w, int h){
   //Checks if the mouse is in the boundary of the edge height and width of the "buttons"
-  float disX = x - mouseX;
-  float disY = y - mouseY;
-  if (sqrt(sq(disX) + sq(disY)) < diameter/2 ) {
+  if (mouseX >= x && mouseX <= x+w &&
+      mouseY >= y && mouseY <= y+h){
     return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 void outputCheck(){
