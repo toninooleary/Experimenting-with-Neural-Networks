@@ -37,12 +37,11 @@ void setup(){
   overInput1 = false;
   overInput2 = false;
   p = new Perceptron();
-  
   for (int i = 0; i < switches.length; i++){
     switches[i] = new Switch();
   }
-  switches[0].setPos(inp1PosX, inp1PosY, 86, 119);
-  switches[1].setPos(inp2PosX, inp2PosY, 86, 119); 
+  switches[0].setPos(inp1PosX, inp1PosY, 88, 121);
+  switches[1].setPos(inp2PosX, inp2PosY, 88, 121); 
   
   //initialising training data
   trainData[0] = new Golden(0, 0, 0);
@@ -64,6 +63,9 @@ void draw(){
   background(255);
   buttonUpdate();
   displayAttributes();
+  for (int i = 0; i < switchOnFrames.length-1; i++){
+    image(switchOnFrames[(frameCount / 3) % (switchOnFrames.length - 1)], inp1PosX - 57, inp1PosY - 46);
+  }
 }
 
 void displayAttributes(){
@@ -119,11 +121,11 @@ void buttonUpdate(){
     overTrain = true;
     overInput1 = false;
     overInput2 = false;
-  } else if (hoverInput1(inp1PosX, inp1PosY, 86, 119)){
+  } else if (hoverInput1(inp1PosX, inp1PosY, 88, 121)){
     overInput1 = true;
     overTrain = false;
     overInput2 = false;
-  } else if (hoverInput2(inp2PosX, inp2PosY, 86, 119)){
+  } else if (hoverInput2(inp2PosX, inp2PosY, 88, 121)){
     overInput2 = true;
     overInput1 = false;
     overTrain = false;   
