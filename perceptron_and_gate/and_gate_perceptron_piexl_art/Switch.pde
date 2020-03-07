@@ -5,20 +5,25 @@ class Switch {
   float x;
   float y;
   PImage[] onAnim;
+  PImage[] offAnim;
   PImage currentFrame;
   boolean animateOn;
   boolean animateOff;
   int counter;
   
   //constructor
-  Switch(float x, float y, float w, float h, PImage[] onAnim){
+  Switch(float x, float y, float w, float h, PImage[] onAnim, PImage[] offAnim){
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
-    this.onAnim = new PImage[onAnim.length-1];
-    for (int i = 0; i < onAnim.length-1; i++){
+    this.onAnim = new PImage[onAnim.length];
+    for (int i = 0; i < onAnim.length; i++){
       this.onAnim[i] = onAnim[i]; 
+    }
+    this.offAnim = new PImage[offAnim.length];
+    for (int i = 0; i < offAnim.length; i++){
+      this.offAnim[i] = offAnim[i]; 
     }
     state = 0;
     animateOn = false;
@@ -61,10 +66,20 @@ class Switch {
       }
       if (currentFrame == onAnim[2]){
         animateOn = false;
-      }   
+      }
+    } else if (animateOff == true){
+      for (int i = 0; i < offAnim.length; i++){
+        image(offAnim[(counter / 10) % (offAnim.length)], x - 57, y - 46);
+        currentFrame = offAnim[(counter / 10) % (offAnim.length)];
+        counter++; // counter is used instead of "frameCount" 
+                   // FrameCount is unreliable. A counter can be reset and manipulated easily
+      }
+      if (currentFrame == offAnim[2]){
+        animateOff = false;
+      }  
     } else {
       image(currentFrame, x - 57, y - 46);
-    } 
+    }
   }
   
   // Sets the idle frames for the switches when they are not animating 

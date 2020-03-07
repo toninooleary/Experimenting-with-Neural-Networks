@@ -17,12 +17,20 @@ boolean overInput2;
 
 PImage switchOnSS;
 JSONObject switchOnJsn;
-PImage[] switchOnFrames = new PImage[4];
+PImage[] switchOnFrames = new PImage[3];
+
+PImage switchOffSS;
+JSONObject switchOffJsn;
+PImage[] switchOffFrames = new PImage[3];
 
 void setup(){
+  print(switchOnFrames.length);
   size(1200, 800);
   switchOnSS = loadImage("/animations/switch_on_v2_sheet.png");
   switchOnJsn = loadJSONObject("/animations/switch_on_v2_data.json");
+
+  switchOffSS = loadImage("/animations/switch_off_v2_sheet.png");
+  switchOffJsn = loadJSONObject("/animations/switch_off_v2_data.json");
   
   genNum = 0;
   light = false;
@@ -51,9 +59,17 @@ void setup(){
     PImage img = switchOnSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
     switchOnFrames[i] = img;
   }
+
+  frames = switchOffJsn.getJSONObject("frames");
+  for (int i = 0; i < frames.size(); i++){
+    JSONObject imgData = frames.getJSONObject("switch_off_v2 " + i + ".aseprite" );
+    JSONObject frameData = imgData.getJSONObject("frame");
+    PImage img = switchOffSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
+    switchOffFrames[i] = img;
+  }
   
-  switches[0] = new Switch(inp1PosX, inp1PosY, 88, 121, switchOnFrames);
-  switches[1] = new Switch(inp2PosX, inp2PosY, 88, 121, switchOnFrames);
+  switches[0] = new Switch(inp1PosX, inp1PosY, 88, 121, switchOnFrames, switchOffFrames);
+  switches[1] = new Switch(inp2PosX, inp2PosY, 88, 121, switchOnFrames, switchOffFrames);
 }
 
 void draw(){
