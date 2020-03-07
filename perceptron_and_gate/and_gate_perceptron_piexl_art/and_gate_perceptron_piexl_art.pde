@@ -23,6 +23,14 @@ PImage switchOffSS;
 JSONObject switchOffJsn;
 PImage[] switchOffFrames = new PImage[3];
 
+PImage lightFaultSS;
+JSONObject lightFaultJsn;
+PImage[] lightFaultFrames = new PImage[4];
+
+PImage lightOnSS;
+JSONObject lightOnJsn;
+PImage[] lightOnFrames = new PImage[9];
+
 void setup(){
   print(switchOnFrames.length);
   size(1200, 800);
@@ -31,7 +39,10 @@ void setup(){
 
   switchOffSS = loadImage("/animations/switch_off_v2_sheet.png");
   switchOffJsn = loadJSONObject("/animations/switch_off_v2_data.json");
-  
+ 
+  lightFaultSS = loadImage("/animations/light_faulty_sheet.png");
+  lightFaultJsn = loadJSONObject("/animations/light_faulty_data.json");
+ 
   genNum = 0;
   light = false;
   rectSize = 50;
@@ -53,20 +64,40 @@ void setup(){
   trainData[3] = new Golden(1, 1, 1);
   
   JSONObject frames = switchOnJsn.getJSONObject("frames");
+  JSONObject imgData;
+  JSONObject frameData;
+  PImage img;
   for (int i = 0; i < frames.size(); i++){
-    JSONObject imgData = frames.getJSONObject("switch_on_v2 " + i + ".aseprite" );
-    JSONObject frameData = imgData.getJSONObject("frame");
-    PImage img = switchOnSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
+    imgData = frames.getJSONObject("switch_on_v2 " + i + ".aseprite" );
+    frameData = imgData.getJSONObject("frame");
+    img = switchOnSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
     switchOnFrames[i] = img;
   }
 
   frames = switchOffJsn.getJSONObject("frames");
   for (int i = 0; i < frames.size(); i++){
-    JSONObject imgData = frames.getJSONObject("switch_off_v2 " + i + ".aseprite" );
-    JSONObject frameData = imgData.getJSONObject("frame");
-    PImage img = switchOffSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
+    imgData = frames.getJSONObject("switch_off_v2 " + i + ".aseprite" );
+    frameData = imgData.getJSONObject("frame");
+    img = switchOffSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
     switchOffFrames[i] = img;
   }
+  
+  frames = lightFaultJsn.getJSONObject("frames");
+  for (int i = 0; i < frames.size(); i++){
+    imgData = frames.getJSONObject("switch_off_v2 " + i + ".aseprite" );
+    frameData = imgData.getJSONObject("frame");
+    img = lightFaultSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
+    lightFaultFrames[i] = img;
+  }
+  
+  frames = lightOnJsn.getJSONObject("frames");
+  for (int i = 0; i < frames.size(); i++){
+    imgData = frames.getJSONObject("switch_off_v2 " + i + ".aseprite" );
+    frameData = imgData.getJSONObject("frame");
+    img = lightOnSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
+    lightOnFrames[i] = img;
+  }
+  
   
   switches[0] = new Switch(inp1PosX, inp1PosY, 88, 121, switchOnFrames, switchOffFrames);
   switches[1] = new Switch(inp2PosX, inp2PosY, 88, 121, switchOnFrames, switchOffFrames);
@@ -85,7 +116,7 @@ void displayAttributes(){
   
   //display bulb
   if (!light){
-    fill(150);  
+    fill(150);
   } else {
     fill(244,175,90);  
   }
@@ -176,13 +207,11 @@ boolean hoverInput2(int x, int y, int w, int h){
 
 void outputCheck(){
   for (int i = 0; i < trainData.length; i++){
-  
     // Gets the training data that matches the "switches" input.
     if (trainData[i].getInput(0) == switches[0].getState() && trainData[i].getInput(1) == switches[1].getState()){
       currentlySelected = trainData[i];
     }
   }  
-  
   // turns the "light" on if the output from the perceptrons guess is correct.
   // This is irrelevant from whether it is correct or not.
   if (p.guess(currentlySelected) != 1){
