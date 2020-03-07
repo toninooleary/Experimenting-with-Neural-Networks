@@ -37,9 +37,6 @@ void setup(){
   overInput1 = false;
   overInput2 = false;
   p = new Perceptron();
-  for (int i = 0; i < switches.length; i++){
-    switches[i] = new Switch();
-  }
   
   //initialising training data
   trainData[0] = new Golden(0, 0, 0);
@@ -54,9 +51,9 @@ void setup(){
     PImage img = switchOnSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
     switchOnFrames[i] = img;
   }
-  switches[0].setProperties(inp1PosX, inp1PosY, 88, 121, switchOnFrames);
-  switches[1].setProperties(inp2PosX, inp2PosY, 88, 121, switchOnFrames);
   
+  switches[0] = new Switch(inp1PosX, inp1PosY, 88, 121, switchOnFrames);
+  switches[1] = new Switch(inp2PosX, inp2PosY, 88, 121, switchOnFrames);
 }
 
 void draw(){
