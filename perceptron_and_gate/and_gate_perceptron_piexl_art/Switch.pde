@@ -4,6 +4,10 @@ class Switch {
   float h; 
   float x;
   float y;
+  PImage[] anim;
+  PImage currentFrame;
+  boolean animateOn;
+  int counter;
   
   //constructor
   Switch(){
@@ -19,10 +23,16 @@ class Switch {
   void change(){
     if (state == 1){
       state = 0;
+      counter = 0;
       fill(255, 0, 0);
+      currentFrame = null;
     } else {
       state = 1;
+      animateOn = true;
+      counter = 0;
       fill(0, 255, 0);
+      currentFrame = null;
+      
     }
     display();
   }
@@ -31,21 +41,42 @@ class Switch {
   void display(){
     noStroke();
     getFill();
-    rect(x, y, w, h);
+    
+    // animates switches
+    if (animateOn == true){
+      for (int i = 0; i < anim.length; i++){
+        image(anim[(counter / 10) % (anim.length)], x - 57, y - 46);
+        currentFrame = anim[(counter / 10) % (anim.length)];
+        counter++; // counter is used instead of "frameCount" 
+                   // FrameCount is unreliable. A counter can be reset and manipulated easily
+      }
+      if (currentFrame == anim[2]){
+        animateOn = false;
+      }  
+    } else {
+      image(currentFrame, x - 57, y - 46);
+    }
   }
   
   void getFill(){
     if (state == 0){
       fill(255, 0, 0);
+      currentFrame = anim[0];
     } else {
       fill(0, 255, 0);
     }
   }
   
-  void setPos(float x, float y, float w, float h){
+  void setProperties(float x, float y, float w, float h, PImage[] anim){
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
+    print(anim.length);
+    this.anim = new PImage[anim.length-1];
+    for (int i = 0; i < anim.length-1; i++){
+      this.anim[i] = anim[i]; 
+    }
+    animateOn = false;
   }
 }

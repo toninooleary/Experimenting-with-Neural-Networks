@@ -40,8 +40,6 @@ void setup(){
   for (int i = 0; i < switches.length; i++){
     switches[i] = new Switch();
   }
-  switches[0].setPos(inp1PosX, inp1PosY, 88, 121);
-  switches[1].setPos(inp2PosX, inp2PosY, 88, 121); 
   
   //initialising training data
   trainData[0] = new Golden(0, 0, 0);
@@ -56,6 +54,8 @@ void setup(){
     PImage img = switchOnSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
     switchOnFrames[i] = img;
   }
+  switches[0].setProperties(inp1PosX, inp1PosY, 88, 121, switchOnFrames);
+  switches[1].setProperties(inp2PosX, inp2PosY, 88, 121, switchOnFrames);
   
 }
 
@@ -63,9 +63,6 @@ void draw(){
   background(255);
   buttonUpdate();
   displayAttributes();
-  for (int i = 0; i < switchOnFrames.length-1; i++){
-    image(switchOnFrames[(frameCount / 3) % (switchOnFrames.length - 1)], inp1PosX - 57, inp1PosY - 46);
-  }
 }
 
 void displayAttributes(){
@@ -94,6 +91,7 @@ void displayAttributes(){
   fill(0);
   textAlign(CENTER, CENTER);
   text("Press To Train", rectPosX + (rectSize * 3/2), rectPosY + (rectSize/2));
+
 }
 
 void mousePressed(){
@@ -105,7 +103,7 @@ void mousePressed(){
       p.train(trainData[i]);
     }
   } else if (overInput1){
-    switches[0].change();  
+    switches[0].change();
   } else if (overInput2){
     switches[1].change();    
   }
