@@ -54,6 +54,10 @@ class Switch {
   //displays the switches on the screen
   void display(){
     noStroke();
+    fill(150, 200);
+    rect(x - 20, y, w + 20, h + 20);    
+    getFill();
+    rect(x - 10, y - 10, w + 20, h + 20);
     getStill();
     
     // animates switches
@@ -88,6 +92,14 @@ class Switch {
       currentFrame = onAnim[0];
     } else {
       currentFrame = onAnim[2];
+    }
+  }
+  
+  void getFill(){
+    if (state == 0){
+      fill(255, 0, 0);
+    } else {
+      fill(0, 255, 0);
     }
   }
 }

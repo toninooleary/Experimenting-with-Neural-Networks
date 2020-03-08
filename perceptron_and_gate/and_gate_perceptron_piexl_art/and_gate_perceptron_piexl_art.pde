@@ -82,21 +82,21 @@ void setup(){
     switchOffFrames[i] = img;
   }
   
-  frames = lightFaultJsn.getJSONObject("frames");
-  for (int i = 0; i < frames.size(); i++){
-    imgData = frames.getJSONObject("switch_off_v2 " + i + ".aseprite" );
-    frameData = imgData.getJSONObject("frame");
-    img = lightFaultSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
-    lightFaultFrames[i] = img;
-  }
+  //frames = lightFaultJsn.getJSONObject("frames");
+  //for (int i = 0; i < frames.size(); i++){
+  //  imgData = frames.getJSONObject("switch_off_v2 " + i + ".aseprite" );
+  //  frameData = imgData.getJSONObject("frame");
+  //  img = lightFaultSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
+  //  lightFaultFrames[i] = img;
+  //}
   
-  frames = lightOnJsn.getJSONObject("frames");
-  for (int i = 0; i < frames.size(); i++){
-    imgData = frames.getJSONObject("switch_off_v2 " + i + ".aseprite" );
-    frameData = imgData.getJSONObject("frame");
-    img = lightOnSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
-    lightOnFrames[i] = img;
-  }
+  //frames = lightOnJsn.getJSONObject("frames");
+  //for (int i = 0; i < frames.size(); i++){
+  //  imgData = frames.getJSONObject("switch_off_v2 " + i + ".aseprite" );
+  //  frameData = imgData.getJSONObject("frame");
+  //  img = lightOnSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
+  //  lightOnFrames[i] = img;
+  //}
   
   
   switches[0] = new Switch(inp1PosX, inp1PosY, 88, 121, switchOnFrames, switchOffFrames);
