@@ -1,4 +1,5 @@
 Perceptron p;
+Bulb bulb;
 Switch[] switches = new Switch[2];
 Golden[] trainData = new Golden[4];
 Golden currentlySelected;
@@ -14,6 +15,7 @@ int inp2PosY;
 boolean overTrain;
 boolean overInput1;
 boolean overInput2;
+boolean animateLight;
 
 PImage switchOnSS;
 JSONObject switchOnJsn;
@@ -32,29 +34,32 @@ JSONObject lightOnJsn;
 PImage[] lightOnFrames = new PImage[9];
 
 void setup(){
-  print(switchOnFrames.length);
   size(1200, 800);
   switchOnSS = loadImage("/animations/switch_on_v2_sheet.png");
   switchOnJsn = loadJSONObject("/animations/switch_on_v2_data.json");
 
   switchOffSS = loadImage("/animations/switch_off_v2_sheet.png");
   switchOffJsn = loadJSONObject("/animations/switch_off_v2_data.json");
- 
+  
   lightFaultSS = loadImage("/animations/light_faulty_sheet.png");
-  lightFaultJsn = loadJSONObject("/animations/light_faulty_data.json");
+  lightFaultJsn = loadJSONObject("/animations/light_faulty_data.json"); 
+  
+  lightOnSS = loadImage("/animations/light_on_sheet.png");
+  lightOnJsn = loadJSONObject("/animations/light_on_data.json");
  
   genNum = 0;
   light = false;
   rectSize = 50;
   rectPosX = (width/width * 100);
   rectPosY = height/6 * 5;
-  inp1PosX = (width/width * 100) -33;
+  inp1PosX = (width/7) -33;
   inp1PosY = (height/4) -60;
   inp2PosX = inp1PosX;
   inp2PosY = inp1PosY * 3;
   overTrain = false;
   overInput1 = false;
   overInput2 = false;
+  animateLight = false;
   p = new Perceptron();
   
   //initialising training data
@@ -82,25 +87,25 @@ void setup(){
     switchOffFrames[i] = img;
   }
   
-  //frames = lightFaultJsn.getJSONObject("frames");
-  //for (int i = 0; i < frames.size(); i++){
-  //  imgData = frames.getJSONObject("switch_off_v2 " + i + ".aseprite" );
-  //  frameData = imgData.getJSONObject("frame");
-  //  img = lightFaultSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
-  //  lightFaultFrames[i] = img;
-  //}
+  frames = lightFaultJsn.getJSONObject("frames");
+  for (int i = 0; i < frames.size(); i++){
+    imgData = frames.getJSONObject("light_faulty " + i + ".aseprite" );
+    frameData = imgData.getJSONObject("frame");
+    img = lightFaultSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
+    lightFaultFrames[i] = img;
+  }
   
-  //frames = lightOnJsn.getJSONObject("frames");
-  //for (int i = 0; i < frames.size(); i++){
-  //  imgData = frames.getJSONObject("switch_off_v2 " + i + ".aseprite" );
-  //  frameData = imgData.getJSONObject("frame");
-  //  img = lightOnSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
-  //  lightOnFrames[i] = img;
-  //}
-  
-  
+  frames = lightOnJsn.getJSONObject("frames");
+  for (int i = 0; i < frames.size(); i++){
+    imgData = frames.getJSONObject("light_on " + i + ".aseprite" );
+    frameData = imgData.getJSONObject("frame");
+    img = lightOnSS.get(frameData.getInt("x"), frameData.getInt("y"), frameData.getInt("w"), frameData.getInt("h"));
+    lightOnFrames[i] = img;
+  }
+ 
   switches[0] = new Switch(inp1PosX, inp1PosY, 88, 121, switchOnFrames, switchOffFrames);
   switches[1] = new Switch(inp2PosX, inp2PosY, 88, 121, switchOnFrames, switchOffFrames);
+  bulb = new Bulb(width/2, height/2, lightOnFrames, lightFaultFrames);
 }
 
 void draw(){
@@ -113,13 +118,8 @@ void displayAttributes(){
   //switches circles
   switches[0].display();
   switches[1].display();
+  bulb.display();
   
-  //display bulb
-  if (!light){
-    fill(150);
-  } else {
-    fill(244,175,90);  
-  }
   noStroke();
   ellipse(width/2, height/2, 30, 30);
   fill(150); 
@@ -148,8 +148,19 @@ void mousePressed(){
     }
   } else if (overInput1){
     switches[0].change();
+    //display bulb
+    if (!light){
+      bulb.animate(0);
+    } else {
+      bulb.animate(1);
+    }  
   } else if (overInput2){
-    switches[1].change();    
+    switches[1].change();
+    if (!light){
+      bulb.animate(0);
+    } else {
+      bulb.animate(1);
+    }      
   }
   
   if (genNum > 0){

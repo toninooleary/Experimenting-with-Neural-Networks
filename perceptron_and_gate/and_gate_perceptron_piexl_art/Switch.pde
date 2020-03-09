@@ -23,7 +23,8 @@ class Switch {
     }
     this.offAnim = new PImage[offAnim.length];
     for (int i = 0; i < offAnim.length; i++){
-      this.offAnim[i] = offAnim[i]; 
+      this.offAnim[i] = offAnim[i];
+      print(offAnim.length);
     }
     state = 0;
     animateOn = false;
