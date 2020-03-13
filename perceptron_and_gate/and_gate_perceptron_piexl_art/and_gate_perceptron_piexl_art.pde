@@ -16,6 +16,7 @@ boolean overTrain;
 boolean overInput1;
 boolean overInput2;
 boolean animateLight;
+PImage andGateImg;
 
 PImage switchOnSS;
 JSONObject switchOnJsn;
@@ -46,7 +47,8 @@ void setup(){
   
   lightOnSS = loadImage("/animations/light_on_sheet.png");
   lightOnJsn = loadJSONObject("/animations/light_on_data.json");
- 
+  
+  andGateImg = loadImage("/animations/and_gate_sprite_larger.png");
   genNum = 0;
   light = false;
   rectSize = 50;
@@ -105,13 +107,14 @@ void setup(){
  
   switches[0] = new Switch(inp1PosX, inp1PosY, 88, 121, switchOnFrames, switchOffFrames);
   switches[1] = new Switch(inp2PosX, inp2PosY, 88, 121, switchOnFrames, switchOffFrames);
-  bulb = new Bulb(width/2, height/2, lightOnFrames, lightFaultFrames);
+  bulb = new Bulb((width/7) * 6, height/2, lightOnFrames, lightFaultFrames, switches);
 }
 
 void draw(){
   background(255);
   buttonUpdate();
   displayAttributes();
+  //ellipse(width/2,height/2,50,50);
 }
 
 void displayAttributes(){
@@ -119,9 +122,18 @@ void displayAttributes(){
   switches[0].display();
   switches[1].display();
   bulb.display();
+  if (animateLight == true){
+    if (!light){
+      fill(150);
+      bulb.animate(0);
+    } else {
+      fill(140,234,20);
+      bulb.animate(1);
+    }
+    animateLight = false;
+  }
   
   noStroke();
-  ellipse(width/2, height/2, 30, 30);
   fill(150); 
   rect(rectPosX, rectPosY, rectSize * 3, rectSize);
   
@@ -135,7 +147,7 @@ void displayAttributes(){
   fill(0);
   textAlign(CENTER, CENTER);
   text("Press To Train", rectPosX + (rectSize * 3/2), rectPosY + (rectSize/2));
-
+  image(andGateImg, width/2 - 366/2, height/2 - 148/2 - 60);
 }
 
 void mousePressed(){
@@ -148,24 +160,16 @@ void mousePressed(){
     }
   } else if (overInput1){
     switches[0].change();
+    animateLight = true;
     //display bulb
-    if (!light){
-      bulb.animate(0);
-    } else {
-      bulb.animate(1);
-    }  
   } else if (overInput2){
     switches[1].change();
-    if (!light){
-      bulb.animate(0);
-    } else {
-      bulb.animate(1);
-    }      
+    animateLight = true;
   }
   
   if (genNum > 0){
     outputCheck();
-  }
+  } 
 }
 
 //updates checks if the mouse is over a 
