@@ -141,12 +141,12 @@ void displayAttributes(){
   textSize(20);
   fill(0);
   textAlign(CENTER, CENTER);
-  text("Generation " + genNum, 100, 70);
+  text("Adjustments: " + genNum, 100, 70);
 
   textSize(20);
   fill(0);
   textAlign(CENTER, CENTER);
-  text("Press To Train", rectPosX + (rectSize * 3/2), rectPosY + (rectSize/2));
+  text("Press To Tune", rectPosX + (rectSize * 3/2), rectPosY + (rectSize/2));
   image(andGateImg, width/2 - 366/2, height/2 - 148/2 - 60);
 }
 
