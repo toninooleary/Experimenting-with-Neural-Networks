@@ -1,5 +1,13 @@
 # Neural Networks Experiments:
 
+# Final Perceptron:
+
+## Visualised AND Gate Perceptron Complete (Using self made pixel art):
+
+![image](./perceptron_and_gate/pictures/perceptron_pixel_art_gif.gif "Pixel art and gate perceptron")
+
+# Experimental Process:
+
 ## The perceptron:
 This perceptron aims to classify points as 1 or -1 depending on what side of the line they are on.
 
@@ -50,7 +58,3 @@ This will be extended further, animations and a more pleasant UI will be impleme
 - You can see each output for a generation by changing the inputs (via a click on an input node).
 
 ![image](./perceptron_and_gate/pictures/visualised_and_gate_v2.PNG "Mostly complete interactive system for AND gate perceptron visualisation")
-
-## Visualised AND Gate Perceptron Complete (Using self made pixel art):
-
-![image](./perceptron_and_gate/pictures/perceptron_pixel_art_gif.gif "Pixel art and gate perceptron")
